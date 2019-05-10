@@ -1,0 +1,56 @@
+<?php
+namespace App\Model\Entity;
+
+use Cake\ORM\Entity;
+
+/**
+ * Plant Entity
+ *
+ * @property int $id
+ * @property int $village_id
+ * @property string $name
+ * @property int|null $vendor_id
+ * @property \Cake\I18n\FrozenDate|null $start_date
+ * @property \Cake\I18n\FrozenDate|null $complete_date
+ * @property bool $is_received
+ * @property \Cake\I18n\FrozenTime $created_on
+ * @property int $created_by
+ * @property \Cake\I18n\FrozenTime|null $edited_on
+ * @property int|null $edited_by
+ * @property bool $is_deleted
+ *
+ * @property \App\Model\Entity\Village $village
+ * @property \App\Model\Entity\Vendor $vendor
+ * @property \App\Model\Entity\AccountingEntry[] $accounting_entries
+ */
+class Plant extends Entity
+{
+
+    /**
+     * Fields that can be mass assigned using newEntity() or patchEntity().
+     *
+     * Note that when '*' is set to true, this allows all unspecified fields to
+     * be mass assigned. For security purposes, it is advised to set '*' to false
+     * (or remove it), and explicitly make individual fields accessible as needed.
+     *
+     * @var array
+     */
+    protected $_accessible = [
+        'village_id' => true,
+        'name' => true,
+        'vendor_id' => true,
+        'start_date' => true,
+        'complete_date' => true,
+        'is_received' => true,
+        'created_on' => true,
+        'created_by' => true,
+        'edited_on' => true,
+        'edited_by' => true,
+        'is_deleted' => true,
+        'village' => true,
+        'vendor' => true,
+        'image' => true,
+        'accounting_entries' => true,
+        'transports' => true
+    ];
+}

@@ -1,0 +1,157 @@
+/* here you can put your own css to customize and override the theme */
+
+/***
+Rounded Portlets
+***/
+/*
+.portlet {
+	border-radius: 4px !important;
+}
+
+.portlet .portlet-title {
+	border-radius: 4px 4px 0px 0px !important;
+}
+
+.portlet .portlet-body,
+.portlet .portlet-body .form-actions  {
+	border-radius: 0px 0px 4px 4px !important;
+}
+*/
+
+/*
+Change Quick Sidebar Width
+*/
+
+/*
+.page-quick-sidebar-wrapper {
+  right: -370px;
+  width: 370px;
+}
+
+.page-quick-sidebar-open.page-quick-sidebar-push-content .page-sidebar-wrapper {
+  margin-left: -370px;
+}
+
+.page-quick-sidebar-open.page-quick-sidebar-push-content .page-footer {
+  margin-right: 370px;
+  margin-left: -370px;
+}
+
+.page-sidebar-reversed.page-quick-sidebar-open.page-quick-sidebar-push-content .page-sidebar-wrapper {
+  margin-right: 370px;
+}
+
+.page-quick-sidebar-open.page-quick-sidebar-push-content.page-quick-sidebar-full-height .page-header {
+  margin-left: -370px;
+}
+
+.page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-list {
+  width: 370px !important;
+}
+
+.page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-item {
+  width: 370px !important;
+  margin-left: 370px;
+}
+
+.page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-content-item-shown .page-quick-sidebar-list {
+  margin-left: -370px;
+}
+*/
+.page-content-wrapper .page-content {
+  background-color: #F0F0F0;
+}
+
+.portlet.light.bordered > .portlet-title {
+    border-bottom: 2px solid #f0f0f0;
+    margin: 0 -20px;
+    padding: 0 20px;
+    margin-bottom: 10px;
+}
+
+.page-header.navbar {
+    height: 60px;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown {
+    padding: 10px;
+    height: 100%;
+}
+
+.page-header-fixed .page-container {
+    margin-top: 60px;
+}
+.page-sidebar .page-sidebar-menu .sub-menu li, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li {
+    margin: 5px 0;
+}
+.page-sidebar .page-sidebar-menu > li, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li {
+    padding: 0 14px;
+}
+.page-sidebar .page-sidebar-menu .sub-menu li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a {
+    display: block;
+    margin: 0;
+    padding: 9px 15px 9px 16px;
+    border-radius: 5px !important;
+    text-decoration: none;
+    font-weight: 400;
+    background: none;
+}
+
+.page-sidebar .page-sidebar-menu > li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a {
+    display: block;
+    position: relative;
+    margin: 0;
+    border-radius: 5px !important;
+    padding: 10px 2px;
+    text-decoration: none;
+    font-weight: 400;
+}
+.sub-menu
+{
+    background-color: #464854 !important;
+}
+.btn-success {
+    background-color: #66C5EA !important;
+    border-color: #66C5EA !important;
+    font-weight: 600;
+}
+.btn-success:Hover {
+    background-color: #66C5EA !important;
+    border-color: #66C5EA !important;
+}
+.btn{
+  border-radius: 5px !important;
+}
+
+.btn-default:active, .btn-default.active {
+    background-image: none;
+    background-color: #65c5eb !important;
+    color: #fff !important;
+    border: 0;
+    font-size: 13px;
+    font-weight: 600;
+}
+.btn-default:hover {
+    background-image: none;
+    background-color: #65c5eb;
+    color: #fff;
+    border: 0;
+    font-size: 13px;
+    font-weight: 600;
+}
+.btn-default, .btn-default:focus, .btn-default:active {
+    color: #C5C7C8;
+    background-color: #fff;
+    border-color: #C5C7C8;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+input{
+  border-radius: 5px !important;
+}
+.error{color:red;}
+.border_right{border-right:1px solid #eee;}
+.border_left{border-left:1px solid #eee;}
+.flex{display: flex;}
+td, th{white-space: nowrap;}

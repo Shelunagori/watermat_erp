@@ -1,0 +1,13 @@
+TRUNCATE `village_works`;
+TRUNCATE `site_selections`;
+TRUNCATE `civils`;
+TRUNCATE `shelters`;
+TRUNCATE `plant_receives`;
+TRUNCATE `tank_receives`;
+TRUNCATE `glow_sign_boards`;
+TRUNCATE `installations`;
+TRUNCATE `commissionings`;
+TRUNCATE `billings`;
+TRUNCATE `logs`;
+TRUNCATE `work_schedule_row_forms`;
+TRUNCATE `work_verifications`;
