@@ -22,7 +22,11 @@ class DivisionsController extends AppController
             return $this->redirect(['controller'=>'Users','action' => 'selectProject']);
     }
 
-
+    public function divisionReport($project_id,$district_id)
+    {
+        $divisions = $this->Divisions->find()->where(['project_id'=>$project_id,'district_id'=>$district_id]);
+        $this->set(compact('divisions'));
+    }
     public function index($id=null)
     {
         if($id)

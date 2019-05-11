@@ -20,7 +20,11 @@ class BlocksController extends AppController
         if(!$this->project_id)
             return $this->redirect(['controller'=>'Users','action' => 'selectProject']);
     }
-
+    public function blockReport($project_id,$division_id)
+    {
+        $blocks = $this->Blocks->find()->where(['project_id'=>$project_id,'division_id'=>$division_id]);
+        $this->set(compact('blocks'));
+    }
     /**
      * Index method
      *

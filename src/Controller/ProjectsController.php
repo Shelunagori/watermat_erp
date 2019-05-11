@@ -72,6 +72,9 @@ class ProjectsController extends AppController
     }
     public function report()
     {
+    }
+    public function projectReport()
+    {
          $projects = $this->Projects->find();
          $this->set('projects', $projects);
     }

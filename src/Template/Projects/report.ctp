@@ -15,26 +15,7 @@
                 </div>
             </div>
             <div class="portlet-body">
-            	<div class="row content">
-            		<?php
-            		foreach ($projects as $project) 
-            		{
-            			?>
-            			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-							<div class="dashboard-stat blue-madison">
-								<div class="visual">
-									
-								</div>
-								<div class="details">
-								
-								</div>
-								<?= $this->Html->link($project->name,['controller'=>'Projects','action'=>'district'],['class'=>'more','escape'=>false]) ?>
-							</div>
-						</div>
-            			<?php
-            		}
-            		?>
-                    
+            	<div class="row content_data">
                     
                 </div>
             </div>
@@ -43,16 +24,19 @@
 </div>
 <?= $this->Html->script("jquery.history.js",['block'=>'historyJS']) ?>
 <?php
+
 $js="
 $(document).ready(function(){
 	$(function(){
-		
+		var i=0;
 		var History = window.History;
-		
-		if (History.enabled) {
+		var url = '".$this->Url->build(['controller'=>'Projects','action'=>'projectReport'])."';
+		if (History.enabled) { 
 			var page = get_url_value('page');
-			var path = page ? page : 'home';
+			var load_page=page;
+			var path = page ? page : url;
 			// Load the page
+
 			load_page_content(path);
 		} else {
 			return false;
@@ -60,7 +44,7 @@ $(document).ready(function(){
 
 		// Content update and back/forward button handler
 		History.Adapter.bind(window, 'statechange', function() {
-			var State = History.getState();	
+			var State = History.getState();
 			// Do ajax
 			load_page_content(State.data.path);
 			// Log the history object to your browser's console
@@ -68,24 +52,31 @@ $(document).ready(function(){
 		});
 
 		// Navigation link handler
-		$('body').on('click', 'nav a', function(e) {
+		$('body').on('click', 'a.block_link', function(e) {
 			e.preventDefault();
 			
 			var urlPath = $(this).attr('href');
 			var title = $(this).text();	
 			
-			History.pushState({path: urlPath}, title, './?page=' + urlPath); // When we do this, History.Adapter will also execute its contents. 		
+			History.pushState({path: urlPath}, title, './report?page=' + urlPath); // When we do this, History.Adapter will also execute its contents. 		
 		});
 		
 		function load_page_content(page) {
 			$.ajax({  
 				type: 'post',
-				url: page + '.html',
+				url: page,
 				data: {},						
 				success: function(response) {
-					$('.content').html(response);
+				
+					$('.content_data').html(response);
 				}
 			});
+		}
+		if(load_page==false)
+		{
+			var urlPath = url;
+			var title = '';	
+			History.pushState({path: urlPath}, title, './report?page=' + urlPath); 
 		}
 		
 		function get_url_value(variable) {
