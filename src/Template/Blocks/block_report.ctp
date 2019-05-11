@@ -10,7 +10,7 @@ foreach ($blocks as $block)
 			<div class="details">
 			
 			</div>
-			<?= $this->Html->link($block->name,['controller'=>'Villeges','action'=>'villegeReport',$block->project_id,$block->id],['class'=>'more block_link','escape'=>false]) ?>
+			<?= $this->Html->link($block->name,['controller'=>'Villages','action'=>'villageReport',$block->project_id,$block->id],['class'=>'more block_link','escape'=>false]) ?>
 		</div>
 	</div>
 	<?php
