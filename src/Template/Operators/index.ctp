@@ -61,6 +61,7 @@
                             <td><?= h($operator->ifsc_code) ?></td>
                             <td><?= h($operator->branch) ?></td>
                             <td class="actions">
+                                <?= $this->Html->link(__("<i class='fa fa-book' ></i>"), ['action' => 'view', $operator->id],['class'=>'btn btn-sm btn-success modal_btn_view','escape'=>false]) ?>
                                 <?= $this->Html->link(__("<i class='fa fa-pencil' ></i>"), ['action' => 'edit', $operator->id],['class'=>'btn btn-sm btn-success modal_btn','escape'=>false]) ?>
                                 <?= $this->Form->postLink(__("<i class='fa fa-trash' ></i>"), ['action' => 'delete', $operator->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sr_no),'class'=>'btn btn-sm btn-danger','escape'=>false]) ?>
                             </td>

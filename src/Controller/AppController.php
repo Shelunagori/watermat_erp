@@ -81,7 +81,7 @@ class AppController extends Controller
             $this->Auth->allow([$this->request->getParam('action')]);
         }
 
-        $this->session = $this->getRequest()->getSession();
+        $this->session = $this->request->getSession();
         
         // maintain referer page
         $refer = $this->session->read('refer');

@@ -38,9 +38,8 @@ class EmployeesController extends AppController
     public function view($id = null)
     {
         $employee = $this->Employees->get($id, [
-            'contain' => ['EmployeeDesignations', 'BankDetails', 'ProjectEmployees', 'Users']
+            'contain' => ['EmployeeDesignations']
         ]);
-
         $this->set('employee', $employee);
     }
 
@@ -62,6 +61,7 @@ class EmployeesController extends AppController
                 if(!$employee->$key && $file['error'] != 4)
                     $this->Flash->error($key." (".$file['name']." ) can not be uploaded");
             }
+            
             if ($this->Employees->save($employee))
                 $this->Flash->success(__('The employee has been saved.'));
             else

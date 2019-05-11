@@ -201,7 +201,3 @@ Type::build('timestamp')
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
-
-
-//for API
- Configure::write('Cache._cake_routes_.duration', '+2 seconds');

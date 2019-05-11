@@ -100,7 +100,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="index.html">
+			<a href="javascript:;">
 				<?= $this->Html->image('logo.png',['class'=>'','width'=>'100%']) ?>
 			</a>
 			<div class="menu-toggler sidebar-toggler hide">
@@ -240,6 +240,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	"/assets/global/plugins/uniform/jquery.uniform.min.js",
 	"/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"
 ]) ?>
+
+<?= $this->fetch('historyJS') ?>
 <!-- END CORE PLUGINS -->
 <?= $this->Html->script([
 	"/assets/global/scripts/metronic.js",
@@ -307,6 +309,14 @@ $(document).ready(function(){
 			$('.select2me').select2();
 			$('form').validate();
 			$('.date-picker').datepicker({autoclose: true});
+		});
+		$('#myModal').modal('show');
+	});
+	$(document).on('click','.modal_btn_view',function(e){
+		e.preventDefault();
+		var url = $(this).attr('href');
+		$.get(url,function(result){
+			$('#myModal-content').html(result);
 		});
 		$('#myModal').modal('show');
 	});

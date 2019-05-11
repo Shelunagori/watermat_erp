@@ -23,7 +23,7 @@ class HelpComponent extends Component
             }
 
             $address = $folder . basename($file["name"]);
-            $img = $file["name"].time();
+            $img = time().rand();
             $imageFileType = strtoupper(pathinfo($address,PATHINFO_EXTENSION));
             $img_address = $folder.$img.".".$imageFileType;
 
@@ -80,7 +80,7 @@ class HelpComponent extends Component
         }
 
         $address = $folder . basename($file["name"]);
-        $img = $file["name"].time();
+        $img = time().rand();
         $imageFileType = strtoupper(pathinfo($address,PATHINFO_EXTENSION));
         $img_address = $folder.$img.".".$imageFileType;
 
