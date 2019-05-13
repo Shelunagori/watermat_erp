@@ -28,7 +28,6 @@
 $js="
 $(document).ready(function(){
 	$(function(){
-		var i=0;
 		var History = window.History;
 		var url = '".$this->Url->build(['controller'=>'Projects','action'=>'projectReport'])."';
 		if (History.enabled) { 
@@ -67,7 +66,6 @@ $(document).ready(function(){
 				url: page,
 				data: {},						
 				success: function(response) {
-				
 					$('.content_data').html(response);
 				}
 			});
@@ -76,7 +74,7 @@ $(document).ready(function(){
 		{
 			var urlPath = url;
 			var title = '';	
-			History.pushState({path: urlPath}, title, './report?page=' + urlPath); 
+			History.pushState({path: urlPath}, title, './report'); 
 		}
 		
 		function get_url_value(variable) {

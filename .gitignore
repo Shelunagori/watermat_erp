@@ -24,3 +24,4 @@
 /app/Config/core.php
 /app/Config/database.php
 /vendors/*
+tmp/cache/myapp_cake_routes_route_collection
