@@ -10,6 +10,7 @@
                             <th class="text-capitalize" scope="col"><?= __('latitude') ?></th>
                             <th class="text-capitalize" scope="col"><?= __('longitude') ?></th>
                             <th class="text-capitalize" scope="col"><?= __('customer Care') ?></th>
+                            <th class="text-capitalize" scope="col"><?= __('Action') ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -24,6 +25,7 @@
                             <td><?= h($village->latitude) ?></td>
                             <td><?= h($village->longitude) ?></td>
                             <td><?= h($village->customer_care) ?></td>
+                            <td><?= $this->Html->link('View Step',['controller'=>'WorkSchedules','action'=>'scheduleReport',$village->project_id,$village->id],['class'=>'btn block_link']) ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

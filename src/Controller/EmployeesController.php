@@ -147,4 +147,25 @@ class EmployeesController extends AppController
 
         $this->set(compact('departmentOfficer', 'projects', 'states', 'districts', 'blocks', 'divisions', 'villages', 'doPosts','employee', 'employeeDesignations', 'vendorDesignations', 'vendor', 'tab','operator'));
     }
+    public function createOperator($tab = 'operator')
+    {
+        $employee = $this->Employees->newEntity();
+        $vendor = $this->Employees->Vendors->newEntity();
+        $operator = $this->Employees->Operators->newEntity();
+        $departmentOfficer = $this->Employees->DepartmentOfficers->newEntity();
+        if ($this->request->is('post')) {
+            $employee = $this->Employees->patchEntity($employee, $this->request->getData());
+            if ($this->Employees->save($employee)) {
+                $this->Flash->success(__('The employee has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The employee could not be saved. Please, try again.'));
+        }
+        $employeeDesignations = $this->Employees->EmployeeDesignations->find('list');
+        $vendorDesignations = $this->Employees->VendorDesignations->find('list');
+        $villages = $this->Employees->Villages->find('list');
+
+        $this->set(compact('departmentOfficer', 'projects', 'states', 'districts', 'blocks', 'divisions', 'villages', 'doPosts','employee', 'employeeDesignations', 'vendorDesignations', 'vendor', 'tab','operator'));
+    }
 }

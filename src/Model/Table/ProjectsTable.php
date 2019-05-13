@@ -57,6 +57,19 @@ class ProjectsTable extends Table
             'foreignKey' => 'project_id'
         ])
         ->setConditions(['designation'=>'Technician']);
+
+        $this->hasMany('Districts', [
+            'foreignKey' => 'project_id'
+        ]);
+        $this->hasMany('Divisions', [
+            'foreignKey' => 'project_id'
+        ]);
+        $this->hasMany('Blocks', [
+            'foreignKey' => 'project_id'
+        ]);
+        $this->hasMany('Villages', [
+            'foreignKey' => 'project_id'
+        ]);
     }
 
     /**

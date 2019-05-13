@@ -40,6 +40,16 @@ class WorkSchedulesController extends AppController
 
         $this->set('workSchedule', $workSchedule);
     }
+    public function scheduleReport($project_id,$village_id)
+    {
+        $workSchedules = $this->WorkSchedules->find()
+                        ->contain(['VillageWorkReports'=>function($q)use($village_id){
+                            return $q->where(['VillageWorkReports.village_id'=>$village_id]);
+                        }])
+                        ->order(['WorkSchedules.id'=>'ASC']);
+                       // pr($workSchedules->toArray()); exit;
+        $this->set(compact('workSchedules'));
+    }
 
     /**
      * Add method

@@ -4,6 +4,9 @@
 		font-weight: bold !important;
 		font-size: large !important;
 	}
+	.box-margin{
+		margin-bottom: 5px;
+	}
 </style>
 <div class="row">
     <div class="col-md-12">
@@ -15,6 +18,59 @@
                 </div>
             </div>
             <div class="portlet-body">
+            	<div class="row">
+            		<div class="col-md-12">
+            			<div class="col-md-3">
+            				<div class="form-group">
+                                <?= $this->Form->label('district', null, ['class'=>'control-label']) ?>
+                                <?php
+                                	foreach ($districts as $district) 
+                                	{
+                                		$districtOptions[]=['text'=>$district->name,'value'=>$district->id,'project_id'=>$district->project_id];
+                                	}
+                                ?>
+                                <?= $this->Form->control('district_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm district_id','options' => $districtOptions]); ?>
+                            </div>
+            			</div>
+            			<div class="col-md-3">
+            				<div class="form-group">
+                                <?= $this->Form->label('division', null, ['class'=>'control-label']) ?>
+                                <?php
+                                	foreach ($divisions as $division) 
+                                	{
+                                		$divisionOptions[]=['text'=>$division->name,'value'=>$division->id,'project_id'=>$division->project_id];
+                                	}
+                                ?>
+                                <?= $this->Form->control('division_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm division_id','options' => $divisionOptions]); ?>
+                            </div>
+            			</div>
+            			<div class="col-md-3">
+            				<div class="form-group">
+                                <?= $this->Form->label('block', null, ['class'=>'control-label']) ?>
+                                <?php
+                                	foreach ($blocks as $block) 
+                                	{
+                                		$blockOptions[]=['text'=>$block->name,'value'=>$block->id,'project_id'=>$block->project_id];
+                                	}
+                                ?>
+                                <?= $this->Form->control('block_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm block_id','options' => $blockOptions]); ?>
+                            </div>
+            			</div>
+            			<div class="col-md-3">
+            				<div class="form-group">
+                                <?= $this->Form->label('village', null, ['class'=>'control-label']) ?>
+                                <?php
+                                	foreach ($villages as $village) 
+                                	{
+                                		$villageOptions[]=['text'=>$village->name,'value'=>$village->id,'project_id'=>$village->project_id];
+                                	}
+                                ?>
+                                <?= $this->Form->control('village_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm village_id','options' => $villageOptions]); ?>
+                            </div>
+            			</div>
+            			
+            		</div>
+            	</div>
             	<div class="row content_data">
                     
                 </div>
@@ -22,12 +78,13 @@
         </div>
     </div>
 </div>
+<?= $this->element('selectpicker') ?>
 <?= $this->Html->script("jquery.history.js",['block'=>'historyJS']) ?>
 <?php
 
 $js="
 $(document).ready(function(){
-	$(function(){
+		
 		var History = window.History;
 		var url = '".$this->Url->build(['controller'=>'Projects','action'=>'projectReport'])."';
 		if (History.enabled) { 
@@ -60,6 +117,39 @@ $(document).ready(function(){
 			History.pushState({path: urlPath}, title, './report?page=' + urlPath); // When we do this, History.Adapter will also execute its contents. 		
 		});
 		
+		$(document).on('change', '.district_id', function() {
+			var value_id = $(this).val();
+			var project_id = $('option:selected',this).attr('project_id');
+			var title = $(this).text();
+			var urlPath = '".$this->Url->build(['controller'=>'Divisions','action'=>'divisionReport'])."/'+project_id+'/'+value_id;
+			load_filter(urlPath,title);
+		});
+		$(document).on('change', '.division_id', function() {
+			var value_id = $(this).val();
+			var project_id = $('option:selected',this).attr('project_id');
+			var title = $(this).text();
+			var urlPath = '".$this->Url->build(['controller'=>'Blocks','action'=>'blockReport'])."/'+project_id+'/'+value_id;
+			load_filter(urlPath,title);
+		});
+		$(document).on('change', '.block_id', function() {
+			var value_id = $(this).val();
+			var project_id = $('option:selected',this).attr('project_id');
+			var title = $(this).text();
+			var urlPath = '".$this->Url->build(['controller'=>'Villages','action'=>'villageReport'])."/'+project_id+'/'+value_id;
+			load_filter(urlPath,title);
+		});
+		$(document).on('change', '.village_id', function() {
+			var value_id = $(this).val();
+			var project_id = $('option:selected',this).attr('project_id');
+			var title = $(this).text();
+			var urlPath = '".$this->Url->build(['controller'=>'WorkSchedules','action'=>'scheduleReport'])."/'+project_id+'/'+value_id;
+			load_filter(urlPath,title);
+		});
+		function load_filter(urlPath,title)
+		{
+			History.pushState({path: urlPath}, title, './report?page=' + urlPath); // When we do this, History.Adapter will also execute its contents. 
+		}
+		
 		function load_page_content(page) {
 			$.ajax({  
 				type: 'post',
@@ -86,7 +176,6 @@ $(document).ready(function(){
 		   }
 		   return(false);
 	    }
-	});
 });";
 $this->Html->scriptBlock($js,['block'=>'scriptBottom']);
 ?>
