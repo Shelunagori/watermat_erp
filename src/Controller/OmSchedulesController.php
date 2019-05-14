@@ -44,7 +44,14 @@ class OmSchedulesController extends AppController
 
         $this->set('omSchedule', $omSchedule);
     }
-
+    public function omReport($village_work_id,$work_schedule_id,$village_id)
+    {
+        $omSchedules = $this->OmSchedules->find()
+                            ->where(['village_id'=>$village_id])
+                            ->contain(['OmScheduleForms']);
+        //pr($omSchedules->toArray()); exit;
+        $this->set(compact('omSchedules'));
+    }
     /**
      * Add method
      *
