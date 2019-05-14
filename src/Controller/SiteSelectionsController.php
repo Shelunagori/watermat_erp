@@ -47,6 +47,15 @@ class SiteSelectionsController extends AppController
         $this->set(compact('name','head_title','siteSelection'));
     }
 
+    public function siteReport($village_work_id)
+    {
+        $siteSelection = $this->SiteSelections->find()
+                            ->where(['village_work_id'=>$village_work_id])
+                            ->contain(['GramPanchayats','MlaConstituencies'])
+                            ->first();
+        $this->set(compact('siteSelection'));
+    }
+
     /**
      * Add method
      *
