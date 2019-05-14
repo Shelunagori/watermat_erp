@@ -292,4 +292,50 @@ class OmSchedulesController extends AppController
         $this->set(compact(['success','message','village_request']));
         $this->set('_serialize', ['success','message','village_request']);
     }
+    
+ 	public function omVillageListPending()
+	{
+        if ($this->request->is(['patch', 'post', 'put'])) 
+        {
+            $data = $this->request->getData();
+            $data = array_filter($data, function($value) { return $value !== ''; });
+            $success = false;
+
+            $om_villages = $this->OmSchedules->find()
+            ->select($this->OmSchedules)
+            ->select(['village'=>'Villages.name'])
+			->where(['is_verify' =>0,'is_complete'=>0])
+            ->innerJoinWith('OmEmployees')
+            ->contain(['Villages'])->order(['visit_date' =>'DESC']);
+ 
+            if(array_key_exists('village_id', $data))
+                $om_villages->where(['Villages.id'=>$data['village_id']]);
+
+            if(array_key_exists('manager_id', $data))
+            {
+               $om_villages->where(['manager_id'=>$data['manager_id']]);
+            }
+            else
+            {
+               $om_villages->where(['technician_id'=>$data['technician_id']]);
+            }
+
+            if(array_key_exists('page', $data))
+            {
+                $om_villages->limit(20);
+                $om_villages->offset(($data['page']-1)*20);
+            }
+
+            if(!empty($om_villages->toArray()))
+            {
+                $message = "Data Found";
+                $success = true;
+            }
+            else
+                $message = "Data Not Found";
+        }
+        $this->set(compact(['success','message','om_villages']));
+        $this->set('_serialize', ['success','message','om_villages']);		
+	}    
+    
 }
