@@ -38,7 +38,7 @@ class VendorsController extends AppController
     public function view($id = null)
     {
         $vendor = $this->Vendors->get($id, [
-            'contain' => ['VendorDesignations', 'BankDetails', 'Users']
+            'contain' => ['VendorDesignations']
         ]);
 
         $this->set('vendor', $vendor);
@@ -54,7 +54,7 @@ class VendorsController extends AppController
         $vendor = $this->Vendors->newEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $data['user']['username'] = $data['contact_no'];
+            $data['user']['username'] = $data['contact_no']+1;
             $data['user']['password'] = "hello";
 
             $vendor = $this->Vendors->patchEntity($vendor, $data);
@@ -64,13 +64,12 @@ class VendorsController extends AppController
                 if(!$vendor->$key && $file['error'] != 4)
                     $this->Flash->error($key." (".$file['name']." ) can not be uploaded");
             }
-
             if ($this->Vendors->save($vendor))
+            {
                 $this->Flash->success(__('The vendor has been saved.'));
-            else
-                $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
-
-            return $this->redirect(['controller'=>'Employees','action' => 'createUser','vendor']);
+                  return $this->redirect(['controller'=>'Employees','action' => 'createUser','vendor']);
+            }
+            $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
         }
         $vendorDesignations = $this->Vendors->VendorDesignations->find('list');
         $this->set(compact('vendor', 'vendorDesignations'));

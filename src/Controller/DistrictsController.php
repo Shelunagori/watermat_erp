@@ -56,7 +56,12 @@ class DistrictsController extends AppController
         $states = $this->Districts->States->find('list');
         $this->set(compact('district','districts', 'states'));
     }
-
+    public function districtReport($project_id)
+    {
+        //$project_id = $this->request->queryData('project_id');
+        $districts = $this->Districts->find()->where(['project_id'=>$project_id]);
+        $this->set(compact('districts'));
+    }
     /**
      * View method
      *

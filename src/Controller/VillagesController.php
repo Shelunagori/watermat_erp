@@ -35,6 +35,12 @@ class VillagesController extends AppController
 
         $this->set(compact('villages'));
     }
+    public function villageReport()
+    {
+        $villages = $this->Villages->find()->contain(['Blocks']);
+
+        $this->set(compact('villages'));
+    }
 
     /**
      * View method

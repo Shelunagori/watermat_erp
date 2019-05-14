@@ -42,6 +42,10 @@ class WorkSchedulesTable extends Table
         $this->hasMany('VillageWorks', [
             'foreignKey' => 'work_schedule_id'
         ]);
+        $this->hasOne('VillageWorkReports', [
+            'className' =>'VillageWorks',
+            'foreignKey' => 'work_schedule_id'
+        ]);
         $this->hasMany('WorkScheduleRows', [
             'foreignKey' => 'work_schedule_id'
         ]);

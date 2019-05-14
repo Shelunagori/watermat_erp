@@ -70,6 +70,27 @@ class ProjectsController extends AppController
 
         $this->set('project', $project);
     }
+    public function report()
+    {
+        $districts = $this->Projects->Districts->find()->contain(['Projects'=>function($q){
+            return $q->select(['Projects.id']);
+        }]);
+        $divisions = $this->Projects->Divisions->find()->contain(['Projects'=>function($q){
+            return $q->select(['Projects.id']);
+        }]);
+        $blocks = $this->Projects->Blocks->find()->contain(['Projects'=>function($q){
+            return $q->select(['Projects.id']);
+        }]);
+        $villages = $this->Projects->Villages->find()->contain(['Projects'=>function($q){
+            return $q->select(['Projects.id']);
+        }]);
+        $this->set(compact('districts','divisions','blocks','villages'));
+    }
+    public function projectReport()
+    {
+        $projects = $this->Projects->find();
+        $this->set('projects', $projects);
+    }
 
     /**
      * Add method
