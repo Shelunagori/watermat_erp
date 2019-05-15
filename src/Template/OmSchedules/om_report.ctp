@@ -20,6 +20,22 @@
 
 <div class="modal-body">
     <div class="form-body">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $this->Form->label('block', null, ['class'=>'control-label label-weight']) ?>
+                    : 
+                    <label class="control-label"><?= h($village->block->name) ?></label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $this->Form->label('village', null, ['class'=>'control-label label-weight']) ?>
+                    : 
+                    <label class="control-label"><?= h($village->name) ?></label>
+                </div>
+            </div>
+        </div>
         <?php
         foreach ($omSchedules as $omSchedule) 
         {
@@ -194,6 +210,37 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                               <th>Mat. Name</th>
+                               <th>Mat. Req. Qty.</th>
+                               <th>Mat. Approved Qty.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($omSchedule->village_requests as $village_request) 
+                        {
+                            foreach ($village_request->village_request_products as $village_request_product) 
+                            {
+                                ?>
+                                <tr>
+                                    <td><?= $village_request_product->product->name ?></td>
+                                    <td><?= $village_request_product->quantity ?></td>
+                                    <td><?= $village_request_product->om_quantity ?></td>
+                                </tr>
+                                <?php
+                            }
+                            
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="form-control form-group" style="height: 100%">
                         <div class="row">
                             <div class="col-sm-4">
@@ -226,163 +273,9 @@
                     </div>
                 </div>
             </div>
+            <hr style="border-top: dotted 2px;" />
             <?php
         }
         ?>
-        
-
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <?= $this->Form->label('gram_panchayat_id', null, ['class'=>'control-label label-weight']) ?>
-                     : 
-                    <label class="control-label"><?= h($siteSelection->gram_panchayat->name) ?></label>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <?= $this->Form->label('mla_constituency_id', null, ['class'=>'control-label label-weight']) ?>
-                     : 
-                    <label class="control-label"><?= h($siteSelection->mla_constituency->name) ?></label>
-                </div>
-            </div>
-            
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-control form-group" style="height: 100%">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <?= $this->Form->label('sarpanch_name', null, ['class'=>'control-label label-weight']) ?>
-                                 : 
-                                <label class="control-label"><?= h($siteSelection->sarpanch) ?></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <?= $this->Form->label('mobile_no', null, ['class'=>'control-label label-weight']) ?>.
-                                : 
-                                <label class="control-label"><?= h($siteSelection->mobile) ?></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <?= $this->Form->label('email_Id', null, ['class'=>'control-label label-weight']) ?>
-                                : 
-                                <label class="control-label"><?= h($siteSelection->email) ?></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-control form-group" style="height: 100%">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <?= $this->Form->label('borewell_available', null, ['class'=>'control-label label-weight']) ?>
-                                 : 
-                                <label class="control-label"><?= h($siteSelection->borewell_available) ?></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <?= $this->Form->label('distance_from_site(meter/ft)', null, ['class'=>'control-label label-weight']) ?>.
-                                : 
-                                <label class="control-label"><?= h($siteSelection->borewell_distance).' '.h($siteSelection->borewell_unit) ?></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-control form-group" style="height: 100%">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <?= $this->Form->label('moter_available', null, ['class'=>'control-label label-weight']) ?>
-                                 : 
-                                <label class="control-label"><?= h($siteSelection->moter_lowered) ?></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-control form-group" style="height: 100%">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <?= $this->Form->label('electricity_available', null, ['class'=>'control-label label-weight']) ?>
-                                 : 
-                                <label class="control-label"><?= h($siteSelection->electricity_available) ?></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <?= $this->Form->label('distance_from_site(meter/ft)', null, ['class'=>'control-label label-weight']) ?>.
-                                : 
-                                <label class="control-label"><?= h($siteSelection->electricity_distance).' '.h($siteSelection->electricity_unit) ?></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <?= $this->Form->label('raw_water_tds', null, ['class'=>'control-label label-weight']) ?>
-                         : 
-                        <label class="control-label"><?= h($siteSelection->raw_water_tds) ?></label>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <?= $this->Form->label('obstacle_if_any', null, ['class'=>'control-label label-weight']) ?>
-                         : 
-                        <label class="control-label"><?= h($siteSelection->obstacle) ?></label>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <?= $this->Form->label('remark', null, ['class'=>'control-label label-weight']) ?>
-                         : 
-                        <label class="control-label"><?= h($siteSelection->remark) ?></label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-control form-group" style="height: 100%">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group"><strong>Uploaded Image</strong></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <div class="fileinput fileinput-exists" data-provides="fileinput">
-                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
-                                        <?= $this->Html->image('/'.$siteSelection->image) ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>

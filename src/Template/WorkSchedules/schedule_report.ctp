@@ -46,6 +46,11 @@ foreach ($workSchedules as $workSchedule)
 		$controller='OmSchedules';
 		$action='omReport';
 	}
+	else if($workSchedule->id == 11)
+	{
+		$controller='Billings';
+		$action='billingReport';
+	}
 	?>
 	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 box-margin" style="color:#FFF;">
 		<?= $this->Html->link('

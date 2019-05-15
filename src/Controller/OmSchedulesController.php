@@ -48,9 +48,12 @@ class OmSchedulesController extends AppController
     {
         $omSchedules = $this->OmSchedules->find()
                             ->where(['village_id'=>$village_id])
-                            ->contain(['OmScheduleForms']);
+                            ->contain(['OmScheduleForms','VillageRequests'=>['VillageRequestProducts'=>['Products']]]);
+        $village = $this->OmSchedules->Villages->get($village_id,[
+                'contain'=>['Blocks']
+        ]);
         //pr($omSchedules->toArray()); exit;
-        $this->set(compact('omSchedules'));
+        $this->set(compact('omSchedules','village'));
     }
     /**
      * Add method
