@@ -165,14 +165,16 @@ class OmSchedulesController extends AppController
             ->select($this->OmSchedules)
             ->select(['village'=>'Villages.name'])
             ->innerJoinWith('OmEmployees')
-            ->contain(['Villages']);
+            ->contain(['Villages'])
+            ->order(['visit_date' => 'DESC']);
 
             if(array_key_exists('village_id', $data))
                 $om_villages->where(['Villages.id'=>$data['village_id']]);
 
             if(array_key_exists('manager_id', $data))
             {
-                $om_villages->select(['arrenge'=>"if(OmSchedules.is_verify,2,if(OmSchedules.is_complete,1,3))"]);
+                //$om_villages->select(['arrenge'=>"if(OmSchedules.is_verify,2,if(OmSchedules.is_complete,1,3))"]);
+                $om_villages->select(['arrenge'=>"if(OmSchedules.is_verify,3,if(OmSchedules.is_complete,1,3))"]);
                 $om_villages->where(['manager_id'=>$data['manager_id']]);
             }
             else
