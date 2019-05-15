@@ -12,7 +12,11 @@ use App\Controller\AppController;
  */
 class PlantsController extends AppController
 {
-
+    public function plantReport($village_work_id,$work_schedule_id)
+    {
+        $plant = $this->Plants->PlantReceives->find()->where(['village_work_id'=>$village_work_id])->first();
+        $this->set('plant', $plant);
+    }
     /**
      * Index method
      *

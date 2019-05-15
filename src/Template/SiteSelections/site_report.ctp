@@ -15,7 +15,7 @@
 </style>
 
 <div class="modal-header">
-    <h4 class="modal-title">Site Selection</h4>
+    <h3 class="modal-title">Site Selection</h3>
 </div>
 
 <div class="modal-body">
@@ -128,6 +128,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="form-control form-group" style="height: 100%">
@@ -152,10 +153,35 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <?= $this->Form->label('raw_water_tds', null, ['class'=>'control-label label-weight']) ?>
+                         : 
+                        <label class="control-label"><?= h($siteSelection->raw_water_tds) ?></label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <?= $this->Form->label('obstacle_if_any', null, ['class'=>'control-label label-weight']) ?>
+                         : 
+                        <label class="control-label"><?= h($siteSelection->obstacle) ?></label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <?= $this->Form->label('remark', null, ['class'=>'control-label label-weight']) ?>
+                         : 
+                        <label class="control-label"><?= h($siteSelection->remark) ?></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div class="form-control form-group" style="height: 100%">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group"><strong>UPLOADED DOCUMENTS</strong></div>
+                            <div class="form-group"><strong>Uploaded Image</strong></div>
                         </div>
                     </div>
                     <div class="row">
@@ -164,27 +190,6 @@
                                 <div class="fileinput fileinput-exists" data-provides="fileinput">
                                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
                                         <?= $this->Html->image('/'.$siteSelection->image) ?>
-                                    </div>
-                                    <div class="text-center">
-                                        <span class="btn default btn-file">
-                                        <span class="fileinput-exists">
-                                        Image </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <div class="fileinput fileinput-exists" data-provides="fileinput">
-                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
-                                        <?= $this->Html->image('/'.$siteSelection->id_proof) ?>
-                                    </div>
-                                    <div class="text-center">
-                                        <span class="btn default btn-file">
-                                        <span class="fileinput-exists">
-                                        ID Proof </span>
-                                        </span>
                                     </div>
                                 </div>
                             </div>

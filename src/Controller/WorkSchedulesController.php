@@ -47,8 +47,30 @@ class WorkSchedulesController extends AppController
                             return $q->where(['VillageWorkReports.village_id'=>$village_id]);
                         }])
                         ->order(['WorkSchedules.id'=>'ASC']);
-                       // pr($workSchedules->toArray()); exit;
         $this->set(compact('workSchedules'));
+    }
+    public function civilReport($village_work_id,$work_schedule_id)
+    {
+        $workSchedule = $this->WorkSchedules->get($work_schedule_id,[
+                            'contain' => ['WorkScheduleRows'=>['WorkSatisfactions']]
+                        ]);
+        $this->set(compact('workSchedule'));
+    }
+    public function installationReport($village_work_id,$work_schedule_id)
+    {
+        $workSchedule = $this->WorkSchedules->get($work_schedule_id,[
+                            'contain' => ['WorkScheduleRows'=>['WorkSatisfactions']]
+                        ]);
+        //pr($workSchedule->toArray()); exit;
+        $this->set(compact('workSchedule'));
+    }
+    public function commissioningReport($village_work_id,$work_schedule_id)
+    {
+        $workSchedule = $this->WorkSchedules->get($work_schedule_id,[
+                            'contain' => ['WorkScheduleRows'=>['WorkSatisfactions']]
+                        ]);
+        //pr($workSchedule->toArray()); exit;
+        $this->set(compact('workSchedule'));
     }
 
     /**

@@ -45,7 +45,7 @@ class Application extends BaseApplication
             }
 
             $this->addPlugin('Migrations');
-            $this->addPlugin('MyTheme');
+            //$this->addPlugin('MyTheme');
         }
 
         /*

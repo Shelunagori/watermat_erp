@@ -56,6 +56,7 @@ class PlantsTable extends Table
         $this->hasMany('Transports', [
             'foreignKey' => 'plant_id'
         ]);
+        $this->belongsTo('PlantReceives');
     }
 
     /**

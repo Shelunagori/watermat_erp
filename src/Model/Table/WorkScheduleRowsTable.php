@@ -50,6 +50,10 @@ class WorkScheduleRowsTable extends Table
         $this->hasMany('WorkVerifications', [
             'foreignKey' => 'work_schedule_row_id'
         ]);
+        $this->hasOne('WorkSatisfactions', [
+            'className' => 'WorkVerifications',
+            'foreignKey' => 'work_schedule_row_id'
+        ]);
     }
 
     /**
