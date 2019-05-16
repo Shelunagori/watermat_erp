@@ -26,35 +26,35 @@ class VendorsController extends AppController
         ];
         if ($this->request->query('search')) 
         { 
-            $vendor = $this->Vendors->find();
+            $vendor = $this->Vendors->find()->order(['Vendors.name' => 'ASC']);
             if(!empty($this->request->query('vendor_designation_id')))
             {
                 $vendor_designation_id = $this->request->query('vendor_designation_id');
                 $vendor->where(['vendor_designation_id'=>$vendor_designation_id]);
                 
             }
-            elseif(!empty($this->request->query('name')))
+            if(!empty($this->request->query('name')))
             {
                 $name = $this->request->query('name');
                 $vendor->where(function (QueryExpression $exp, Query $q) use($name) {
                     return $exp->like('Vendors.name', '%'.$name.'%');
                 });
             }
-            elseif(!empty($this->request->query('email')))
+            if(!empty($this->request->query('email')))
             {
                 $email = $this->request->query('email');
                 $vendor->where(function (QueryExpression $exp, Query $q) use($email) {
                     return $exp->like('Vendors.email', '%'.$email.'%');
                 });
             }
-            elseif(!empty($this->request->query('contact_no')))
+            if(!empty($this->request->query('contact_no')))
             {
                 $contact_no = $this->request->query('contact_no');
                 $vendor->where(function (QueryExpression $exp, Query $q) use($contact_no) {
                     return $exp->like('Vendors.contact_no', '%'.$contact_no.'%');
                 });
             }
-            elseif(!empty($this->request->query('from')) && !empty($this->request->query('to')))
+            if(!empty($this->request->query('from')) && !empty($this->request->query('to')))
             {
                 $from = date('Y-m-d',strtotime($this->request->query('from')));
                 $to = date('Y-m-d',strtotime($this->request->query('to')));
@@ -66,11 +66,14 @@ class VendorsController extends AppController
         }
         else
         {
-            $vendors = $this->paginate($this->Vendors);
+            $vendors = $this->paginate($this->Vendors->find()->order(['Vendors.name' => 'ASC']));
         }
 
+		if(!empty($from)) { $from = date('d-m-Y',strtotime($from));  }
+		if(!empty($to)) { $to = date('d-m-Y',strtotime($to));  }
+		
         $vendorDesignations = $this->Vendors->VendorDesignations->find('list');
-        $this->set(compact('vendors','vendorDesignations'));
+        $this->set(compact('vendors','vendorDesignations','name','vendor_designation_id','email','contact_no','from','to'));
     }
 
     /**

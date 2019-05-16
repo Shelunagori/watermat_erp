@@ -47,14 +47,14 @@ class DepartmentOfficersController extends AppController
                 $departmentOfficere->where(['do_post_id'=>$do_post_id]);
                 
             }
-            elseif(!empty($this->request->query('name')))
+            if(!empty($this->request->query('name')))
             {
                 $name = $this->request->query('name');
                 $departmentOfficere->where(function (QueryExpression $exp, Query $q) use($name) {
                     return $exp->like('DepartmentOfficers.name', '%'.$name.'%');
                 });
             }
-            elseif(!empty($this->request->query('contact_no')))
+            if(!empty($this->request->query('contact_no')))
             {
                 $contact_no = $this->request->query('contact_no');
                 $departmentOfficere->where(function (QueryExpression $exp, Query $q) use($contact_no) {
@@ -94,7 +94,7 @@ class DepartmentOfficersController extends AppController
 
         $projects = $this->DepartmentOfficers->Projects->find('list');
         $doPosts = $this->DepartmentOfficers->DoPosts->find('list');
-        $this->set(compact('departmentOfficer', 'departmentOfficers', 'projects', 'doPosts'));
+        $this->set(compact('departmentOfficer', 'departmentOfficers', 'projects', 'doPosts','do_post_id','name','contact_no'));
     }
 
     /**

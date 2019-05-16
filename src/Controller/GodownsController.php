@@ -39,7 +39,7 @@ class GodownsController extends AppController
                 $godowne->where(['employee_id'=>$employee_id]);
                 
             }
-            elseif(!empty($this->request->query('name')))
+            if(!empty($this->request->query('name')))
             {
                 $name = $this->request->query('name');
                 $godowne->where(function (QueryExpression $exp, Query $q) use($name) {
@@ -62,8 +62,11 @@ class GodownsController extends AppController
             }
             $this->Flash->error(__('The godown could not be saved. Please, try again.'));
         }
+		
+		
+		
         $employees = $this->Godowns->Employees->find('list');
-        $this->set(compact('godowns', 'godown', 'employees'));
+        $this->set(compact('godowns', 'godown', 'employees','employee_id','name'));
     }
 
     /**

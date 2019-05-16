@@ -94,19 +94,19 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <?= $this->Form->label('do_post_id', null, ['class'=>'control-label']) ?>
-                                    <?= $this->Form->control('do_post_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm','options' => $doPosts]); ?>
+                                    <?= $this->Form->control('do_post_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm','options' => $doPosts,'value'=>@$do_post_id]); ?>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <?= $this->Form->label('name', null, ['class'=>'control-label']) ?>
-                                    <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','placeholder'=>'Name']); ?>
+                                    <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','placeholder'=>'Name','value'=>@$name]); ?>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <?= $this->Form->label('contact_no', null, ['class'=>'control-label']) ?>
-                                    <?= $this->Form->control('contact_no',['label'=>false,'class'=>'form-control','placeholder'=>'Contact No']); ?>
+                                    <?= $this->Form->control('contact_no',['label'=>false,'class'=>'form-control','placeholder'=>'Contact No','value'=>@$contact_no]); ?>
                                 </div>
                             </div>
                             <div class="col-sm-3">

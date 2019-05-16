@@ -56,13 +56,13 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $this->Form->label('village_id', null, ['class'=>'control-label']) ?>
-                                    <?= $this->Form->control('village_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm','options' => $villages]); ?>
+                                    <?= $this->Form->control('village_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm','options' => $villages,'value'=>@$village_id]); ?>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $this->Form->label('schedule_date', null, ['class'=>'control-label']) ?>
-                                   <?= $this->Form->control('schedule_date', ['label'=>false,'class'=>'form-control date-picker','data-date-format'=>'dd-M-yyyy','empty' => true,'type'=>'text']); ?>
+                                   <?= $this->Form->control('schedule_date', ['label'=>false,'class'=>'form-control date-picker','data-date-format'=>'dd-M-yyyy','empty' => true,'type'=>'text','value' =>@$schedule_date]); ?>
                                 </div>
                             </div>
                             <div class="col-sm-4">

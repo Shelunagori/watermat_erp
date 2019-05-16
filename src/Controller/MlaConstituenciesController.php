@@ -44,7 +44,7 @@ class MlaConstituenciesController extends AppController
                 $mlaConstituencie->where(['block_id'=>$block_id]);
                 
             }
-            elseif(!empty($this->request->query('name')))
+            if(!empty($this->request->query('name')))
             {
                 $name = $this->request->query('name');
                 $mlaConstituencie->where(function (QueryExpression $exp, Query $q) use($name) {
@@ -73,7 +73,7 @@ class MlaConstituenciesController extends AppController
         }
 
         $divisions = $this->MlaConstituencies->Blocks->find('list');
-        $this->set(compact('mlaConstituency', 'mlaConstituencies', 'divisions'));
+        $this->set(compact('mlaConstituency', 'mlaConstituencies', 'divisions','block_id','name'));
     }
 
 
