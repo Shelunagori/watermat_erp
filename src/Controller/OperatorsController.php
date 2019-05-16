@@ -34,14 +34,14 @@ class OperatorsController extends AppController
                     return $exp->like('Operators.name', '%'.$name.'%');
                 });
             }
-            elseif(!empty($this->request->query('contact_no')))
+            if(!empty($this->request->query('contact_no')))
             {
                 $contact_no = $this->request->query('contact_no');
                 $operator->where(function (QueryExpression $exp, Query $q) use($contact_no) {
                     return $exp->like('Operators.contact_no', '%'.$contact_no.'%');
                 });
             }
-            elseif(!empty($this->request->query('from')) && !empty($this->request->query('to')))
+            if(!empty($this->request->query('from')) && !empty($this->request->query('to')))
             {
                 $from = date('Y-m-d',strtotime($this->request->query('from')));
                 $to = date('Y-m-d',strtotime($this->request->query('to')));
@@ -55,9 +55,11 @@ class OperatorsController extends AppController
         {
             $operators = $this->paginate($this->Operators);
         }
-        
+ 
+ 		if(!empty($from)) { $from = date('d-m-Y',strtotime($from));  }
+		if(!empty($to)) { $to = date('d-m-Y',strtotime($to));  } 
 
-        $this->set(compact('operators'));
+        $this->set(compact('operators','name','contact_no','from','to'));
     }
 
     /**

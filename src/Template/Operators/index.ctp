@@ -18,22 +18,22 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <?= $this->Form->label('name', null, ['class'=>'control-label']) ?>
-                                <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','placeholder'=>'Name']); ?>
+                                <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','placeholder'=>'Name','value'=>@$name]); ?>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <?= $this->Form->label('contact_no', null, ['class'=>'control-label']) ?>
-                                <?= $this->Form->control('contact_no',['label'=>false,'class'=>'form-control','placeholder'=>'Contact No.']); ?>
+                                <?= $this->Form->control('contact_no',['label'=>false,'class'=>'form-control','placeholder'=>'Contact No.','value'=>@$contact_no]); ?>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <?= $this->Form->label('date_of_appointment', null, ['class'=>'control-label']) ?>
                             <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="dd-M-yyyy">
-                                <?= $this->Form->control('from',['label'=>false,'class'=>'form-control','placeholder'=>'From']); ?>
+                                <?= $this->Form->control('from',['label'=>false,'class'=>'form-control','placeholder'=>'From','value'=>@$from]); ?>
                                 <span class="input-group-addon">
                                 to </span>
-                                 <?= $this->Form->control('to',['label'=>false,'class'=>'form-control','placeholder'=>'To']); ?>
+                                 <?= $this->Form->control('to',['label'=>false,'class'=>'form-control','placeholder'=>'To','value'=>@$to]); ?>
                             </div>
                             <!-- /input-group -->
                             <span class="help-block">
