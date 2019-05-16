@@ -69,7 +69,7 @@
                             <td><?= h($village->longitude) ?></td>
                             <td><?= h($village->customer_care) ?></td>
                             <td class="actions">
-                                <?= $this->Html->link(__("<i class='fa fa-pencil' ></i>"), ['action' => 'edit', $village->id],['class'=>'btn btn-sm btn-success modal_btn','escape'=>false]) ?>
+                                <?= $this->Html->link(__("<i class='fa fa-pencil' ></i>"), ['action' => 'edit', $village->id],['class'=>'btn btn-sm btn-success modal_btn_full','escape'=>false]) ?>
                                 <?= $this->Form->postLink(__("<i class='fa fa-trash' ></i>"), ['action' => 'delete', $village->id], ['confirm' => __('Are you sure you want to delete # {0}?', $sr_no),'class'=>'btn btn-sm btn-danger','escape'=>false]) ?>
                             </td>
                         </tr>
@@ -91,3 +91,125 @@
     </div>
 </div>
 <?= $this->element('selectpicker') ?>
+<?= $this->element('datepicker') ?>
+<?= $this->element('validate') ?>
+<?= $this->element('fileinput') ?>
+
+<?php
+$js="
+$(document).ready(function(){
+    //add_employees();
+    
+
+    $(document).on('click', '.add_employee', function(){
+        add_employees();
+    });
+    
+    function add_employees()
+    {
+        var tr=$('#employee_table tbody tr.main_tr').clone();
+        $('#employee_tbody').append(tr);
+        rename_employees();
+    }
+    
+    $(document).on('click', '.remove_employee', function(){
+        var count = $('#employee_tbody').children().length;
+        if(count>=2)
+        {
+            $(this).parent().parent().remove();
+            rename_employees();
+        }
+    });
+    
+    function rename_employees()
+    {
+        var i=0;
+        $('#employee_tbody').find('.main_tr').each(function(){
+            
+            $(this).find('.index').html(i+1);
+            $(this).find('.id').attr({name:'employee_villages['+i+'][id]',id: ''});
+            $(this).find('select.employee_id').attr({name:'employee_villages['+i+'][employee_id]',id: '',class: 'input-sm form-control'}).select2();
+            $(this).find('select.designation').attr({name:'employee_villages['+i+'][designation]',id: '',class: 'input-sm form-control'}).select2();
+            i++;
+        });
+    }
+
+    //add_dos();
+
+
+    $(document).on('click', '.add_do', function(){
+        add_dos();
+    });
+    
+    function add_dos()
+    {
+        var tr=$('#do_table tbody tr.main_tr').clone();
+        $('#do_tbody').append(tr);
+        rename_dos();
+    }
+    
+    $(document).on('click', '.remove_do', function(){
+        var count = $('#do_tbody').children().length;
+        if(count>=2)
+        {
+            $(this).parent().parent().remove();
+            rename_dos();
+        }
+    });
+    
+    function rename_dos()
+    {
+        var i=0;
+        $('#do_tbody').find('.main_tr').each(function(){
+            
+            $(this).find('.index').html(i+1);
+            $(this).find('select.department_officer_id').attr({name:'do_villages['+i+'][department_officer_id]',id: ''}).select2();
+            $(this).find('select.do_post').attr({name:'do_villages['+i+'][do_post_id]',id: ''}).select2();
+            $(this).find('.id').attr({name:'do_villages['+i+'][id]',id: ''});
+            i++;
+        });
+    }
+
+    $(document).on('change','.do_post',function(){
+        var do_post = $(this).val();
+        var url = '".$this->Url->build(['controller'=>'DepartmentOfficers','action'=>'getDos.json'])."';
+        var officer = $(this).parents('tr').find('select.department_officer_id');
+        if(do_post)
+        {
+            $.post(url,{do_post: do_post},function(result){
+                officer.empty();
+                officer.append($('<option/>', {value: '', text: '--Select--'}));
+                officer.select2();
+                $.each(result.dos, function(key,value) {
+                    var o = $('<option/>', {value: key, text: value});
+                    officer.append(o);
+                });
+            });
+        }
+    });
+
+    $(document).on('change','.vendor',function(){
+        var vendor = $(this).val();
+        if(vendor)
+        {
+            $(this).parent().parent().find('.hid').removeAttr('disabled');
+        }
+    });
+
+
+    $(document).on('click','.modal_btn_full',function(e){
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.get(url,function(result){
+            $('#myModal-content-full').html(result);
+            rename_employees();
+            rename_dos();
+            $('.select2me').select2();
+            $('form').validate();
+        });
+        $('#myModalFull').modal('show');
+    });
+
+});";
+$this->Html->scriptBlock($js,['block'=>'scriptBottom']);
+?>

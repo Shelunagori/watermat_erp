@@ -170,7 +170,18 @@ License: You must have a valid license purchased only from themeforest(the above
 			</div>
 			<!-- /.modal -->
 			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+			<div class="modal fade" id="myModalFull" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog modal-full">
+					<div class="modal-content" id="myModal-content-full">
+						
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 			<!-- BEGIN LOADING MODAL -->
 			<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
 			 	<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
@@ -312,6 +323,12 @@ $(document).ready(function(){
 		});
 		$('#myModal').modal('show');
 	});
+	$("#myModalFull").on("hidden.bs.modal", function () {
+		var img = '<div class="text-center"><?= $this->Html->image('loading.gif') ?></div>';
+		$('#myModal-content-full').html(img);
+	});
+
+	
 	$(document).on('click','.modal_btn_view',function(e){
 		e.preventDefault();
 		var url = $(this).attr('href');
@@ -326,6 +343,7 @@ $(document).ready(function(){
  //          .text('Add New'));
 });
 </script>
+<?= $this->fetch('scriptBottom1') ?>
 <!-- END JAVASCRIPTS -->
 
 </body>
