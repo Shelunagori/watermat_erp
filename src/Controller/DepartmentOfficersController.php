@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 /**
  * DepartmentOfficers Controller
  *
@@ -37,7 +38,36 @@ class DepartmentOfficersController extends AppController
         $this->paginate = [
             'contain' => ['Projects', 'DoPosts']
         ];
-        $departmentOfficers = $this->paginate($this->DepartmentOfficers);
+        if ($this->request->query('search')) 
+        { 
+            $departmentOfficere = $this->DepartmentOfficers->find();
+            if(!empty($this->request->query('do_post_id')))
+            {
+                $do_post_id = $this->request->query('do_post_id');
+                $departmentOfficere->where(['do_post_id'=>$do_post_id]);
+                
+            }
+            elseif(!empty($this->request->query('name')))
+            {
+                $name = $this->request->query('name');
+                $departmentOfficere->where(function (QueryExpression $exp, Query $q) use($name) {
+                    return $exp->like('DepartmentOfficers.name', '%'.$name.'%');
+                });
+            }
+            elseif(!empty($this->request->query('contact_no')))
+            {
+                $contact_no = $this->request->query('contact_no');
+                $departmentOfficere->where(function (QueryExpression $exp, Query $q) use($contact_no) {
+                    return $exp->like('DepartmentOfficers.contact_no', '%'.$contact_no.'%');
+                });
+            }
+            $departmentOfficers = $this->paginate($departmentOfficere);
+        }
+        else
+        {
+           $departmentOfficers = $this->paginate($this->DepartmentOfficers);
+        }
+        
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $image = $departmentOfficer->image;

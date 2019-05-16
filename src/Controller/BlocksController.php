@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 /**
  * Blocks Controller
  *
@@ -40,8 +41,29 @@ class BlocksController extends AppController
         $this->paginate = [
             'contain' => ['Divisions']
         ];
-
-        $blocks = $this->paginate($this->Blocks);
+        if ($this->request->query('search')) 
+        { 
+            $blocke = $this->Blocks->find();
+            if(!empty($this->request->query('division_id')))
+            {
+                $division_id = $this->request->query('division_id');
+                $blocke->where(['division_id'=>$division_id]);
+                
+            }
+            elseif(!empty($this->request->query('name')))
+            {
+                $name = $this->request->query('name');
+                $blocke->where(function (QueryExpression $exp, Query $q) use($name) {
+                    return $exp->like('Blocks.name', '%'.$name.'%');
+                });
+            }
+            $blocks = $this->paginate($blocke);
+        }
+        else
+        {
+           $blocks = $this->paginate($this->Blocks);
+        }
+        
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $image = $block->image;

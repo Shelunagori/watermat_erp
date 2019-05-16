@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 /**
  * Employees Controller
  *
@@ -23,9 +24,54 @@ class EmployeesController extends AppController
         $this->paginate = [
             'contain' => ['EmployeeDesignations']
         ];
-        $employees = $this->paginate($this->Employees);
 
-        $this->set(compact('employees'));
+        if ($this->request->query('search')) 
+        { 
+            $employee = $this->Employees->find();
+            if(!empty($this->request->query('employee_designation_id')))
+            {
+                $employee_designation_id = $this->request->query('employee_designation_id');
+                $employee->where(['employee_designation_id'=>$employee_designation_id]);
+                
+            }
+            elseif(!empty($this->request->query('name')))
+            {
+                $name = $this->request->query('name');
+                $employee->where(function (QueryExpression $exp, Query $q) use($name) {
+                    return $exp->like('Employees.name', '%'.$name.'%');
+                });
+            }
+            elseif(!empty($this->request->query('email')))
+            {
+                $email = $this->request->query('email');
+                $employee->where(function (QueryExpression $exp, Query $q) use($email) {
+                    return $exp->like('Employees.email', '%'.$email.'%');
+                });
+            }
+            elseif(!empty($this->request->query('contact_no')))
+            {
+                $contact_no = $this->request->query('contact_no');
+                $employee->where(function (QueryExpression $exp, Query $q) use($contact_no) {
+                    return $exp->like('Employees.contact_no', '%'.$contact_no.'%');
+                });
+            }
+            elseif(!empty($this->request->query('from')) && !empty($this->request->query('to')))
+            {
+                $from = date('Y-m-d',strtotime($this->request->query('from')));
+                $to = date('Y-m-d',strtotime($this->request->query('to')));
+                $employee->where(function (QueryExpression $exp, Query $q) use($from,$to) {
+                    return $exp->between('Employees.date_of_joining', $from,$to);
+                });
+            }
+            $employees = $this->paginate($employee);
+        }
+        else
+        {
+            $employees = $this->paginate($this->Employees);
+        }
+        
+        $employeeDesignations = $this->Employees->EmployeeDesignations->find('list');
+        $this->set(compact('employees','employeeDesignations'));
     }
 
     /**
@@ -69,7 +115,7 @@ class EmployeesController extends AppController
 
             return $this->redirect(['action' => 'createUser','employee']);
         }
-        $employeeDesignations = $this->Employees->EmployeeDesignations->find('list', ['limit' => 200]);
+        $employeeDesignations = $this->Employees->EmployeeDesignations->find('list');
         $this->set(compact('employee', 'employeeDesignations'));
     }
     

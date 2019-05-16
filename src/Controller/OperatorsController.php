@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 /**
  * Operators Controller
  *
@@ -23,7 +24,38 @@ class OperatorsController extends AppController
         $this->paginate = [
             'contain' => ['Villages']
         ];
-        $operators = $this->paginate($this->Operators);
+        if ($this->request->query('search')) 
+        { 
+            $operator = $this->Operators->find();
+            if(!empty($this->request->query('name')))
+            {
+                $name = $this->request->query('name');
+                $operator->where(function (QueryExpression $exp, Query $q) use($name) {
+                    return $exp->like('Operators.name', '%'.$name.'%');
+                });
+            }
+            elseif(!empty($this->request->query('contact_no')))
+            {
+                $contact_no = $this->request->query('contact_no');
+                $operator->where(function (QueryExpression $exp, Query $q) use($contact_no) {
+                    return $exp->like('Operators.contact_no', '%'.$contact_no.'%');
+                });
+            }
+            elseif(!empty($this->request->query('from')) && !empty($this->request->query('to')))
+            {
+                $from = date('Y-m-d',strtotime($this->request->query('from')));
+                $to = date('Y-m-d',strtotime($this->request->query('to')));
+                $operator->where(function (QueryExpression $exp, Query $q) use($from,$to) {
+                    return $exp->between('Operators.date_of_appointment', $from,$to);
+                });
+            }
+            $operators = $this->paginate($operator);
+        }
+        else
+        {
+            $operators = $this->paginate($this->Operators);
+        }
+        
 
         $this->set(compact('operators'));
     }

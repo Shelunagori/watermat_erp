@@ -1,9 +1,8 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Vendor[]|\Cake\Collection\CollectionInterface $vendors
- */
-?>
+<style type="text/css">
+    input {
+    border-radius: 0px !important;
+}
+</style>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet light bordered">
@@ -12,6 +11,58 @@
                     <i class="fa fa-gift"></i>
                     <span class="caption-subject"><?= __('Vendors') ?></span>
                 </div>
+            </div>
+            <div class="portlet-body">
+                <?= $this->Form->create('',['type'=>'get']) ?>
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <?= $this->Form->label('vendor_designation_id', null, ['class'=>'control-label']) ?>
+                                    <?= $this->Form->control('vendor_designation_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm','options' => $vendorDesignations]); ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <?= $this->Form->label('name', null, ['class'=>'control-label']) ?>
+                                    <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','placeholder'=>'Name']); ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <?= $this->Form->label('email', null, ['class'=>'control-label']) ?>
+                                    <?= $this->Form->control('email',['label'=>false,'class'=>'form-control','placeholder'=>'Email']); ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <?= $this->Form->label('contact_no', null, ['class'=>'control-label']) ?>
+                                    <?= $this->Form->control('contact_no',['label'=>false,'class'=>'form-control','placeholder'=>'Contact No.']); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <?= $this->Form->label('date_of_joining', null, ['class'=>'control-label']) ?>
+                                <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="dd-M-yyyy">
+                                    <?= $this->Form->control('from',['label'=>false,'class'=>'form-control','placeholder'=>'From']); ?>
+                                    <span class="input-group-addon">
+                                    to </span>
+                                     <?= $this->Form->control('to',['label'=>false,'class'=>'form-control','placeholder'=>'To']); ?>
+                                </div>
+                                <!-- /input-group -->
+                                <span class="help-block">
+                                Select date range </span>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <?= $this->Form->label('Search', null, ['class'=>'control-label','style'=>'visibility: hidden;']) ?>
+                                    <div class="input-icon right">
+                                       <?= $this->Form->button(__('Search'),['class'=>'btn text-uppercase btn-success','name'=>'search','value'=>'search']) ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?= $this->Form->end() ?>
             </div>
             <div class="portlet-body table-responsive">
                 <table class="table table-striped table-hover table-bordered">

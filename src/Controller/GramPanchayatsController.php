@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 /**
  * GramPanchayats Controller
  *
@@ -39,7 +40,29 @@ class GramPanchayatsController extends AppController
         $this->paginate = [
             'contain' => ['Blocks']
         ];
-        $gramPanchayats = $this->paginate($this->GramPanchayats);
+        if ($this->request->query('search')) 
+        { 
+            $gramPanchayate = $this->GramPanchayats->find();
+            if(!empty($this->request->query('block_id')))
+            {
+                $block_id = $this->request->query('block_id');
+                $gramPanchayate->where(['block_id'=>$block_id]);
+                
+            }
+            elseif(!empty($this->request->query('name')))
+            {
+                $name = $this->request->query('name');
+                $gramPanchayate->where(function (QueryExpression $exp, Query $q) use($name) {
+                    return $exp->like('GramPanchayats.name', '%'.$name.'%');
+                });
+            }
+            $gramPanchayats = $this->paginate($gramPanchayate);
+        }
+        else
+        {
+           $gramPanchayats = $this->paginate($this->GramPanchayats);
+        }
+        
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $gramPanchayat = $this->GramPanchayats->patchEntity($gramPanchayat, $this->request->getData());

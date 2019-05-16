@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 /**
  * Divisions Controller
  *
@@ -37,7 +38,29 @@ class DivisionsController extends AppController
         $this->paginate = [
             'contain' => ['Districts']
         ];
-        $divisions = $this->paginate($this->Divisions);
+        if ($this->request->query('search')) 
+        { 
+            $divisione = $this->Divisions->find();
+            if(!empty($this->request->query('district_id')))
+            {
+                $district_id = $this->request->query('district_id');
+                $divisione->where(['district_id'=>$district_id]);
+                
+            }
+            elseif(!empty($this->request->query('name')))
+            {
+                $name = $this->request->query('name');
+                $divisione->where(function (QueryExpression $exp, Query $q) use($name) {
+                    return $exp->like('Divisions.name', '%'.$name.'%');
+                });
+            }
+            $divisions = $this->paginate($divisione);
+        }
+        else
+        {
+           $divisions = $this->paginate($this->Divisions);
+        }
+        
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $image = $division->image;

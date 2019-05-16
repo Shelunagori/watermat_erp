@@ -88,6 +88,40 @@
                 </div>
             </div>
             <div class="portlet-body">
+                <?= $this->Form->create('',['type'=>'get']) ?>
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <?= $this->Form->label('do_post_id', null, ['class'=>'control-label']) ?>
+                                    <?= $this->Form->control('do_post_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm','options' => $doPosts]); ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <?= $this->Form->label('name', null, ['class'=>'control-label']) ?>
+                                    <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','placeholder'=>'Name']); ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <?= $this->Form->label('contact_no', null, ['class'=>'control-label']) ?>
+                                    <?= $this->Form->control('contact_no',['label'=>false,'class'=>'form-control','placeholder'=>'Contact No']); ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <?= $this->Form->label('Search', null, ['class'=>'control-label','style'=>'visibility: hidden;']) ?>
+                                    <div class="input-icon right">
+                                       <?= $this->Form->button(__('Search'),['class'=>'btn text-uppercase btn-success','name'=>'search','value'=>'search']) ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?= $this->Form->end() ?>
+            </div>
+            <div class="portlet-body">
                 <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
                     <thead>
                         <tr>
