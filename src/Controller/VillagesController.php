@@ -54,7 +54,7 @@ class VillagesController extends AppController
         {
            $villages = $this->paginate($this->Villages);
         }
-		
+
         $blocks = $this->Villages->Blocks->find('list');
         $this->set(compact('villages','blocks','block_id','name'));
     }
@@ -105,7 +105,8 @@ class VillagesController extends AppController
     {
         $village = $this->Villages->newEntity();
 
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')) 
+        {
 
             $data = $this->request->getData();
 
@@ -161,19 +162,53 @@ class VillagesController extends AppController
     public function edit($id = null)
     {
         $village = $this->Villages->get($id, [
-            'contain' => []
+            'contain' => ['VendorVillages','EmployeeVillages','DoVillages']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $village = $this->Villages->patchEntity($village, $this->request->getData());
+        $old_image = $village->image;
+        if ($this->request->is(['post','patch','put'])) 
+        {
+
+            $data = $this->request->getData();
+
+            foreach ($data['do_villages'] as $key => $value) {
+                if(empty($value['department_officer_id']))
+                    unset($data['do_villages'][$key]);
+            }
+            foreach ($data['employee_villages'] as $key => $value) {
+                if(empty($value['employee_id']))
+                    unset($data['employee_villages'][$key]);
+            }
+            foreach ($data['vendor_villages'] as $key => $value) {
+                if(empty($value['vendor_id']))
+                    unset($data['vendor_villages'][$key]);
+            }
+
+            $village = $this->Villages->patchEntity($village, $data);
+            $village->project_id = $this->project_id;
+            $village->image = $this->Help->upload($_FILES['image'],$old_image);
+
             if ($this->Villages->save($village)) {
                 $this->Flash->success(__('The village has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+            //pr($village);exit;
             $this->Flash->error(__('The village could not be saved. Please, try again.'));
         }
+      
         $divisions = $this->Villages->Blocks->find('list');
-        $this->set(compact('village', 'divisions'));
+
+        $civilVendors = $this->Villages->VendorVillages->CivilVendors->find('list');
+        $shelterVendors = $this->Villages->VendorVillages->ShelterVendors->find('list');
+        $icVendors = $this->Villages->VendorVillages->ICVendors->find('list');
+
+        $doPosts = $this->Villages->DoPosts->find('list');
+        $departmentOfficers = $this->Villages->DoVillages->DepartmentOfficers->find('list');
+
+        $employeePosts = ['Manager'=>'Manager','Technician'=>'Technician'];
+        $employees = $this->Villages->EmployeeVillages->Employees->find('list');
+
+        $this->set(compact('village', 'divisions', 'doPosts', 'departmentOfficers', 'employeePosts', 'employees', 'civilVendors', 'shelterVendors', 'icVendors'));
     }
 
     /**

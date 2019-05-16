@@ -85,7 +85,8 @@ class VillagesTable extends Table
         ]);
 
         $this->hasMany('VendorVillages', [
-            'foreignKey' => 'village_id'
+            'foreignKey' => 'village_id',
+            'saveStrategy' =>'replace'
         ]);
 
         $this->hasMany('VillageWorks', [
