@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 /**
  * Godowns Controller
  *
@@ -29,7 +30,28 @@ class GodownsController extends AppController
             'contain' => ['Employees']
         ];
         
-        $godowns = $this->paginate($this->Godowns);
+        if ($this->request->query('search')) 
+        { 
+            $godowne = $this->Godowns->find();
+            if(!empty($this->request->query('employee_id')))
+            {
+                $employee_id = $this->request->query('employee_id');
+                $godowne->where(['employee_id'=>$employee_id]);
+                
+            }
+            elseif(!empty($this->request->query('name')))
+            {
+                $name = $this->request->query('name');
+                $godowne->where(function (QueryExpression $exp, Query $q) use($name) {
+                    return $exp->like('Godowns.name', '%'.$name.'%');
+                });
+            }
+            $godowns = $this->paginate($godowne);
+        }
+        else
+        {
+           $godowns = $this->paginate($this->Godowns);
+        }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $godown = $this->Godowns->patchEntity($godown, $this->request->getData());
