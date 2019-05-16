@@ -51,19 +51,19 @@
                 <?= $this->Form->create('',['type'=>'get']) ?>
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $this->Form->label('division_id', null, ['class'=>'control-label']) ?>
                                     <?= $this->Form->control('division_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm','options' => $districts]); ?>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $this->Form->label('name', null, ['class'=>'control-label']) ?>
                                     <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','placeholder'=>'Name']); ?>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $this->Form->label('Search', null, ['class'=>'control-label','style'=>'visibility: hidden;']) ?>
                                     <div class="input-icon right">

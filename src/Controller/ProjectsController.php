@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 /**
  * Projects Controller
  *
@@ -25,7 +26,30 @@ class ProjectsController extends AppController
         else
             $project = $this->Projects->newEntity();
 
-        $projects = $this->paginate($this->Projects);
+        if ($this->request->query('search')) 
+        { 
+            $projecte = $this->Projects->find();
+            if(!empty($this->request->query('name')))
+            {
+                $name = $this->request->query('name');
+                $projecte->where(function (QueryExpression $exp, Query $q) use($name) {
+                    return $exp->like('Projects.name', '%'.$name.'%');
+                });
+            }
+            elseif(!empty($this->request->query('project_number')))
+            {
+                $project_number = $this->request->query('project_number');
+                $projecte->where(function (QueryExpression $exp, Query $q) use($project_number) {
+                    return $exp->like('Projects.project_number', '%'.$project_number.'%');
+                });
+            }
+            $projects = $this->paginate($projecte);
+        }
+        else
+        {
+           $projects = $this->paginate($this->Projects);
+        }
+        
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());

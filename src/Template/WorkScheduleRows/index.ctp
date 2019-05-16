@@ -10,7 +10,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-gift"></i>
-                    <span class="caption-subject"><?= __('Add Work Schedule Row') ?></span>
+                    <span class="caption-subject"><?= __('Add Work Schedule Step') ?></span>
                 </div>
             </div>
             <div class="portlet-body">
@@ -43,7 +43,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-gift"></i>
-                    <span class="caption-subject"><?= __('Work Schedule Rows') ?></span>
+                    <span class="caption-subject"><?= __('Work Schedule Step') ?></span>
                 </div>
             </div>
             <div class="portlet-body">
