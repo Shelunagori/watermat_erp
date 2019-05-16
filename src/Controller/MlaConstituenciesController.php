@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 /**
  * MlaConstituencies Controller
  *
@@ -34,8 +35,29 @@ class MlaConstituenciesController extends AppController
         $this->paginate = [
             'contain' => ['Projects', 'Blocks']
         ];
-
-        $mlaConstituencies = $this->paginate($this->MlaConstituencies);
+        if ($this->request->query('search')) 
+        { 
+            $mlaConstituencie = $this->MlaConstituencies->find();
+            if(!empty($this->request->query('block_id')))
+            {
+                $block_id = $this->request->query('block_id');
+                $mlaConstituencie->where(['block_id'=>$block_id]);
+                
+            }
+            elseif(!empty($this->request->query('name')))
+            {
+                $name = $this->request->query('name');
+                $mlaConstituencie->where(function (QueryExpression $exp, Query $q) use($name) {
+                    return $exp->like('MlaConstituencies.name', '%'.$name.'%');
+                });
+            }
+            $mlaConstituencies = $this->paginate($mlaConstituencie);
+        }
+        else
+        {
+           $mlaConstituencies = $this->paginate($this->MlaConstituencies);
+        }
+        
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $mlaConstituency = $this->MlaConstituencies->patchEntity($mlaConstituency, $this->request->getData());

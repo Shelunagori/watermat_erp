@@ -2,7 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Database\Expression\QueryExpression;
+use Cake\ORM\Query;
 /**
  * Villages Controller
  *
@@ -30,10 +31,31 @@ class VillagesController extends AppController
         $this->paginate = [
             'contain' => ['Blocks']
         ];
-        $this->Villages->find()->first();
-        $villages = $this->paginate($this->Villages);
-
-        $this->set(compact('villages'));
+        //$this->Villages->find()->first();
+        if ($this->request->query('search')) 
+        { 
+            $village = $this->Villages->find();
+            if(!empty($this->request->query('block_id')))
+            {
+                $block_id = $this->request->query('block_id');
+                $village->where(['block_id'=>$block_id]);
+                
+            }
+            elseif(!empty($this->request->query('name')))
+            {
+                $name = $this->request->query('name');
+                $village->where(function (QueryExpression $exp, Query $q) use($name) {
+                    return $exp->like('Villages.name', '%'.$name.'%');
+                });
+            }
+            $villages = $this->paginate($village);
+        }
+        else
+        {
+           $villages = $this->paginate($this->Villages);
+        }
+        $blocks = $this->Villages->Blocks->find('list');
+        $this->set(compact('villages','blocks'));
     }
     public function villageReport()
     {
