@@ -36,7 +36,7 @@ class ProjectsController extends AppController
                     return $exp->like('Projects.name', '%'.$name.'%');
                 });
             }
-            elseif(!empty($this->request->query('project_number')))
+            if(!empty($this->request->query('project_number')))
             {
                 $project_number = $this->request->query('project_number');
                 $projecte->where(function (QueryExpression $exp, Query $q) use($project_number) {
@@ -75,7 +75,7 @@ class ProjectsController extends AppController
             $message = "No Project Found";
         }
 
-        $this->set(compact('project','projects','employees','id','success','message','designation'));
+        $this->set(compact('name','project_number','project','projects','employees','id','success','message','designation'));
         $this->set('_serialize', ['success','message','projects']);
     }
 

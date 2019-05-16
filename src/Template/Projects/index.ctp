@@ -20,14 +20,14 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <?= $this->Form->label('name', null, ['class'=>'control-label']) ?>
-                                    <?= $this->Form->control('name',['label'=>false,'class'=>'form-control']); ?>
+                                    <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','value' =>@$name]); ?>
                                 </div>
                             </div>
 
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <?= $this->Form->label('project_number', null, ['class'=>'control-label']) ?>
-                                    <?= $this->Form->control('project_number',['label'=>false,'class'=>'form-control']); ?>
+                                    <?= $this->Form->control('project_number',['label'=>false,'class'=>'form-control','value' =>@$project_number]); ?>
                                 </div>
                             </div>
 

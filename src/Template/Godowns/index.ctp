@@ -95,13 +95,13 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $this->Form->label('Incharge', null, ['class'=>'control-label']) ?>
-                                    <?= $this->Form->control('employee_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm','options' => $employees]); ?>
+                                    <?= $this->Form->control('employee_id', ['empty'=>'--Select--','label'=>false,'class'=>'form-control select2me input-sm','options' => $employees,'value' =>@$employee_id]); ?>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $this->Form->label('name', null, ['class'=>'control-label']) ?>
-                                    <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','placeholder'=>'Name']); ?>
+                                    <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','placeholder'=>'Name','value' =>@$name]); ?>
                                 </div>
                             </div>
                             <div class="col-sm-4">

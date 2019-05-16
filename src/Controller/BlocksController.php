@@ -50,7 +50,7 @@ class BlocksController extends AppController
                 $blocke->where(['division_id'=>$division_id]);
                 
             }
-            elseif(!empty($this->request->query('name')))
+            if(!empty($this->request->query('name')))
             {
                 $name = $this->request->query('name');
                 $blocke->where(function (QueryExpression $exp, Query $q) use($name) {
@@ -79,7 +79,7 @@ class BlocksController extends AppController
             $this->Flash->error(__('The block could not be saved. Please, try again.'));
         }
         $districts = $this->Blocks->Divisions->find('list');
-        $this->set(compact('block', 'blocks', 'districts'));
+        $this->set(compact('block', 'blocks', 'districts','division_id','name'));
     }
 
 

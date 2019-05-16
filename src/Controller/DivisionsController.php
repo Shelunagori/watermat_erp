@@ -47,7 +47,7 @@ class DivisionsController extends AppController
                 $divisione->where(['district_id'=>$district_id]);
                 
             }
-            elseif(!empty($this->request->query('name')))
+            if(!empty($this->request->query('name')))
             {
                 $name = $this->request->query('name');
                 $divisione->where(function (QueryExpression $exp, Query $q) use($name) {
@@ -76,7 +76,7 @@ class DivisionsController extends AppController
             $this->Flash->error(__('The division could not be saved. Please, try again.'));
         }
         $blocks = $this->Divisions->Districts->find('list');
-        $this->set(compact('division', 'divisions', 'blocks'));
+        $this->set(compact('division', 'divisions', 'blocks','name','district_id'));
     }
 
     /**

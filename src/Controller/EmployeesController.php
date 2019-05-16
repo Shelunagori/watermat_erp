@@ -34,28 +34,28 @@ class EmployeesController extends AppController
                 $employee->where(['employee_designation_id'=>$employee_designation_id]);
                 
             }
-            elseif(!empty($this->request->query('name')))
+            if(!empty($this->request->query('name')))
             {
                 $name = $this->request->query('name');
                 $employee->where(function (QueryExpression $exp, Query $q) use($name) {
                     return $exp->like('Employees.name', '%'.$name.'%');
                 });
             }
-            elseif(!empty($this->request->query('email')))
+            if(!empty($this->request->query('email')))
             {
                 $email = $this->request->query('email');
                 $employee->where(function (QueryExpression $exp, Query $q) use($email) {
                     return $exp->like('Employees.email', '%'.$email.'%');
                 });
             }
-            elseif(!empty($this->request->query('contact_no')))
+            if(!empty($this->request->query('contact_no')))
             {
                 $contact_no = $this->request->query('contact_no');
                 $employee->where(function (QueryExpression $exp, Query $q) use($contact_no) {
                     return $exp->like('Employees.contact_no', '%'.$contact_no.'%');
                 });
             }
-            elseif(!empty($this->request->query('from')) && !empty($this->request->query('to')))
+            if(!empty($this->request->query('from')) && !empty($this->request->query('to')))
             {
                 $from = date('Y-m-d',strtotime($this->request->query('from')));
                 $to = date('Y-m-d',strtotime($this->request->query('to')));

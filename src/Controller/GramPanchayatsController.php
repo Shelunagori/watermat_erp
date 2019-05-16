@@ -49,7 +49,7 @@ class GramPanchayatsController extends AppController
                 $gramPanchayate->where(['block_id'=>$block_id]);
                 
             }
-            elseif(!empty($this->request->query('name')))
+            if(!empty($this->request->query('name')))
             {
                 $name = $this->request->query('name');
                 $gramPanchayate->where(function (QueryExpression $exp, Query $q) use($name) {
@@ -77,7 +77,7 @@ class GramPanchayatsController extends AppController
             $this->Flash->error(__('The gram panchayat could not be saved. Please, try again.'));
         }
         $blocks = $this->GramPanchayats->Blocks->find('list');
-        $this->set(compact('gramPanchayat', 'gramPanchayats', 'blocks'));
+        $this->set(compact('gramPanchayat', 'gramPanchayats', 'blocks','block_id','name'));
     }
 
     /**

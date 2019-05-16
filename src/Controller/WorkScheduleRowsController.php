@@ -38,7 +38,7 @@ class WorkScheduleRowsController extends AppController
                 $workScheduleRo->where(['work_schedule_id'=>$work_schedule_id]);
                 
             }
-            elseif(!empty($this->request->query('name')))
+            if(!empty($this->request->query('name')))
             {
                 $name = $this->request->query('name');
                 $workScheduleRo->where(function (QueryExpression $exp, Query $q) use($name) {
@@ -63,8 +63,7 @@ class WorkScheduleRowsController extends AppController
             $this->Flash->error(__('The work schedule row could not be saved. Please, try again.'));
         }
         $workSchedules = $this->WorkScheduleRows->WorkSchedules->find('list');
-
-        $this->set(compact('workScheduleRows', 'workScheduleRow', 'workSchedules'));
+		$this->set(compact('workScheduleRows', 'workScheduleRow', 'workSchedules','work_schedule_id','name'));
     }
 
     /**

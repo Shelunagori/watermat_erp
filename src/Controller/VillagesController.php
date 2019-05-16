@@ -41,7 +41,7 @@ class VillagesController extends AppController
                 $village->where(['block_id'=>$block_id]);
                 
             }
-            elseif(!empty($this->request->query('name')))
+            if(!empty($this->request->query('name')))
             {
                 $name = $this->request->query('name');
                 $village->where(function (QueryExpression $exp, Query $q) use($name) {
@@ -54,8 +54,9 @@ class VillagesController extends AppController
         {
            $villages = $this->paginate($this->Villages);
         }
+		
         $blocks = $this->Villages->Blocks->find('list');
-        $this->set(compact('villages','blocks'));
+        $this->set(compact('villages','blocks','block_id','name'));
     }
     public function villageReport()
     {
@@ -488,7 +489,12 @@ class VillagesController extends AppController
                 $this->Flash->error(__('Allready Done'));
             }
         }
+		
+		if(!empty($this->request->query('schedule_date')))
+		{
+			$schedule_date = date('d-m-Y',strtotime($this->request->query('schedule_date')));			
+		}
 
-        $this->set(compact('village', 'villages','villageWorks'));
+        $this->set(compact('village', 'villages','villageWorks','village_id','schedule_date'));
     }
 }
