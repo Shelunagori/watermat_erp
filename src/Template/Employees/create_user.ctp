@@ -288,13 +288,13 @@ $this->assign('title', 'create user');
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <?= $this->Form->label('Vendor Name', null, ['class'=>'control-label']) ?>
-                                            <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','placeholder'=>'Vendor Name','required']); ?>
+                                            <?= $this->Form->label('Company Name', null, ['class'=>'control-label']) ?>
+                                            <?= $this->Form->control('name',['label'=>false,'class'=>'form-control','placeholder'=>'Company Name','required']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <?= $this->Form->label('Date of vendor registration', null, ['class'=>'control-label']) ?>
+                                            <?= $this->Form->label('Date of registration', null, ['class'=>'control-label']) ?>
                                             <div class="input-icon right">
                                                 <i class="fa fa-calendar"></i>
                                                 <?= $this->Form->control('date_of_joining', ['label'=>false,'class'=>'form-control date-picker','data-date-format'=>'dd-M-yyyy','empty' => true,'type'=>'text']); ?>
