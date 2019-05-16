@@ -109,7 +109,7 @@ class VillagesController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            pr($village);exit;
+            //pr($village);exit;
             $this->Flash->error(__('The village could not be saved. Please, try again.'));
         }
 
