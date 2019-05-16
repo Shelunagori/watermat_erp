@@ -187,8 +187,12 @@ License: You must have a valid license purchased only from themeforest(the above
 			<!-- /.modal -->
 			<!-- END LOADING MODAL-->
 
-			<!-- BEGIN PAGE HEADER-->
+			<!-- BEGIN PAGE HEADER
+			
 			<h4 style="margin-top: 0px;"> <strong class="text-capitalize"><?= preg_replace('/([a-z])([A-Z])/s','$1 $2', $this->fetch('title')) ?></strong></h4>
+			
+			-->
+			
 			<!-- END PAGE HEADER-->
 			<?= $this->Flash->render() ?>
 			<!-- BEGIN PAGE CONTENT-->

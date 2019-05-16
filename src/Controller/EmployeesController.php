@@ -27,7 +27,7 @@ class EmployeesController extends AppController
 
         if ($this->request->query('search')) 
         { 
-            $employee = $this->Employees->find();
+            $employee = $this->Employees->find()->order(['Employees.name' =>'ASC']);
             if(!empty($this->request->query('employee_designation_id')))
             {
                 $employee_designation_id = $this->request->query('employee_designation_id');
@@ -67,11 +67,16 @@ class EmployeesController extends AppController
         }
         else
         {
-            $employees = $this->paginate($this->Employees);
+            $employees = $this->paginate($this->Employees->find()->order(['Employees.name' =>'ASC']));
         }
         
         $employeeDesignations = $this->Employees->EmployeeDesignations->find('list');
-        $this->set(compact('employees','employeeDesignations'));
+ 
+ 		if(!empty($from)) { $from = date('d-m-Y',strtotime($from));  }
+		if(!empty($to)) { $to = date('d-m-Y',strtotime($to));  }
+ 
+
+		$this->set(compact('employees','employeeDesignations','employee_designation_id','name','email','contact_no','from','to'));
     }
 
     /**

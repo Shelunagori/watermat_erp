@@ -26,7 +26,7 @@ class VendorsController extends AppController
         ];
         if ($this->request->query('search')) 
         { 
-            $vendor = $this->Vendors->find();
+            $vendor = $this->Vendors->find()->order(['Vendors.name' => 'ASC']);
             if(!empty($this->request->query('vendor_designation_id')))
             {
                 $vendor_designation_id = $this->request->query('vendor_designation_id');
@@ -66,11 +66,14 @@ class VendorsController extends AppController
         }
         else
         {
-            $vendors = $this->paginate($this->Vendors);
+            $vendors = $this->paginate($this->Vendors->find()->order(['Vendors.name' => 'ASC']));
         }
 
+		if(!empty($from)) { $from = date('d-m-Y',strtotime($from));  }
+		if(!empty($to)) { $to = date('d-m-Y',strtotime($to));  }
+		
         $vendorDesignations = $this->Vendors->VendorDesignations->find('list');
-        $this->set(compact('vendors','vendorDesignations'));
+        $this->set(compact('vendors','vendorDesignations','name','vendor_designation_id','email','contact_no','from','to'));
     }
 
     /**
