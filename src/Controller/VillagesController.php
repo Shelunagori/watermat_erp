@@ -429,7 +429,27 @@ class VillagesController extends AppController
     {
         $village = $this->Villages->newEntity();
         $villages = $this->Villages->find('list');
-
+      
+        if ($this->request->query('search')) 
+        { 
+            $villageWork = $this->Villages->VillageWorks->find()->contain(['Villages']);
+            if(!empty($this->request->query('village_id')))
+            {
+                $village_id = $this->request->query('village_id');
+                $villageWork->where(['village_id'=>$village_id]);
+                
+            }
+            elseif(!empty($this->request->query('schedule_date')))
+            {
+                $schedule_date = date('Y-m-d',strtotime($this->request->query('schedule_date')));
+                $villageWork->where(['schedule_date'=>$schedule_date]);
+            }
+            $villageWorks = $this->paginate($villageWork);
+        }
+        else
+        {
+           $villageWorks = $this->paginate($this->Villages->VillageWorks->find()->contain(['Villages']));
+        }
         if($this->request->is('post'))
         {
             if(!$this->Villages->VillageWorks->exists(['village_id'=>$this->request->getData('village_id')]))
@@ -464,9 +484,11 @@ class VillagesController extends AppController
                 $this->Flash->error(__('The data could not be saved. Please, try again.'));
             }
             else
+            {
                 $this->Flash->error(__('Allready Done'));
+            }
         }
 
-        $this->set(compact('village', 'villages'));
+        $this->set(compact('village', 'villages','villageWorks'));
     }
 }
