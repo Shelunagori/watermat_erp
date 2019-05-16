@@ -14,6 +14,7 @@
 /tmp/tests/*
 /tmp/tests/empty
 /tmp/debug_kit.sqlite
+/tmp/cache/myapp_cake_routes_route_collection
 
 /tmp/*
 /tests/*
