@@ -55,11 +55,15 @@ class VillagesTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->hasMany('DoVillages', [
-            'foreignKey' => 'village_id'
+            'foreignKey' => 'village_id',
+            'saveStrategy' =>'replace',
+			'dependent' => true
         ]);
 
         $this->hasMany('EmployeeVillages', [
-            'foreignKey' => 'village_id'
+            'foreignKey' => 'village_id',
+			'saveStrategy' =>'replace',
+			'dependent' => true
         ]);
         
         $this->hasMany('OmEmployees', [
@@ -86,7 +90,8 @@ class VillagesTable extends Table
 
         $this->hasMany('VendorVillages', [
             'foreignKey' => 'village_id',
-            'saveStrategy' =>'replace'
+            'saveStrategy' =>'replace',
+			'dependent' => true
         ]);
 
         $this->hasMany('VillageWorks', [

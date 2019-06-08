@@ -109,7 +109,11 @@
                                                                     </td>
                                                                     <td style="width: 25%;">
                                                                         <button type="button" class="add_employee btn btn-sm green"><i class="fa fa-plus"></i></button>
-                                                                        <a href="<?= $this->Url->build(['action'=>'deleteUser',$employee->id,'EmployeeVillages']) ?>" class="employee_remove btn btn-sm btn-danger deletebtn here"><i class="fa fa-trash"></i></a>
+																		
+																		<button type="button" class="remove_do btn btn-sm btn-danger deletebtn"><i class="fa fa-minus"></i></button>
+																		
+																		
+                                                                        <!-- <a href="<?= $this->Url->build(['action'=>'deleteUser',$employee->id,'EmployeeVillages']) ?>" class="employee_remove btn btn-sm btn-danger deletebtn here"><i class="fa fa-trash"></i></a> -->
                                                                     </td>
                                                                 </tr>
                                                             <?php endforeach ?>
@@ -163,7 +167,11 @@
                                                                     </td>
                                                                     <td style="width: 25%;">
                                                                         <button type="button" class="add_do btn btn-sm green"><i class="fa fa-plus"></i></button>
-                                                                        <a href="<?= $this->Url->build(['action'=>'deleteUser',$do->id,'DoVillages']) ?>" class="do_remove btn btn-sm btn-danger deletebtn here"><i class="fa fa-trash"></i></a>
+                                                                        
+																		<button type="button" class="remove_do btn btn-sm btn-danger deletebtn"><i class="fa fa-minus"></i></button>
+																		
+																		
+																		<!--<a href="<?= $this->Url->build(['action'=>'deleteUser',$do->id,'DoVillages']) ?>" class="do_remove btn btn-sm btn-danger deletebtn here"><i class="fa fa-trash"></i></a>-->
                                                                     </td>
                                                                 </tr>
                                                             <?php endforeach ?>
